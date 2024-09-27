@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { ResponsiveLine } from "@nivo/line";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { CopilotChat } from "@copilotkit/react-ui";
+import { CopilotPopup } from "@copilotkit/react-ui"; // Import CopilotChat
 
 export default function Cryptodisplay() {
     const [cryptocurrencies, setCryptocurrencies] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [chatVisible, setChatVisible] = useState(false); // State to toggle chatbot visibility
 
     useEffect(() => {
         const fetchCryptoData = async () => {
@@ -125,6 +128,19 @@ export default function Cryptodisplay() {
                             </motion.div>
                         </AnimatePresence>
                     )}
+                    {/* Toggle Button for Chat */}
+                 
+                    {/* Copilot Chat */}
+                    
+                        <div className="fixed bottom-0 right-0 w-full max-w-sm p-4">
+                            <CopilotPopup
+                                labels={{
+                                    title: "Crypto Assistant",
+                                    initial: "Hello! Ask me anything about cryptocurrencies.",
+                                }}
+                            />
+                        </div>
+                
                 </div>
             </main>
             <footer className="bg-white border-t border-gray-200 py-4 px-6">
@@ -133,7 +149,6 @@ export default function Cryptodisplay() {
         </div>
     );
 }
-
 function LineChart({ data }) {
     return (
         <div style={{ height: 200 }}>
